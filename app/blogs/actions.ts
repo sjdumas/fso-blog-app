@@ -21,4 +21,5 @@ export async function likeBlog(formData: FormData) {
     incrementLikes(id);
 
     revalidatePath(`/blogs/${id}`);
+    revalidatePath("/blogs");
 }

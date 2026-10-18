@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getBlogs } from "@/lib/blogs";
 
 export default function BlogsPage() {
-    const blogs = getBlogs();
+    const blogs = [...getBlogs()].sort((a, b) => b.likes - a.likes);
 
     return (
         <div>
@@ -11,7 +11,8 @@ export default function BlogsPage() {
             <ul>
                 {blogs.map((blog) => (
                     <li key={blog.id}>
-                        <Link href={`/blogs/${blog.id}`}>{blog.title}</Link> by {blog.author}
+                        <Link href={`/blogs/${blog.id}`}>{blog.title}</Link> by {blog.author} (
+                        {blog.likes} likes)
                     </li>
                 ))}
             </ul>
