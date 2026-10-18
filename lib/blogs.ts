@@ -34,6 +34,10 @@ export function getBlogs(): Blog[] {
 	return blogs;
 }
 
+export function getBlogById(id: number): Blog | undefined {
+	return blogs.find((blog) => blog.id === id);
+}
+
 export function addBlog(title: string, author: string, url: string): Blog {
 	const maxId = Math.max(0, ...blogs.map((blog) => blog.id));
 
