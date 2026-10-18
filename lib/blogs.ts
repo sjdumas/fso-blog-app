@@ -1,9 +1,9 @@
 export interface Blog {
-	id: number;
-	title: string;
-	author: string;
-	url: string;
-	likes: number;
+    id: number;
+    title: string;
+    author: string;
+    url: string;
+    likes: number;
 }
 
 const blogs: Blog[] = [
@@ -51,4 +51,14 @@ export function addBlog(title: string, author: string, url: string): Blog {
 
     blogs.push(newBlog);
     return newBlog;
+}
+
+export function incrementLikes(id: number): Blog | undefined {
+    const blog = getBlogById(id);
+
+    if (blog) {
+        blog.likes += 1;
+    }
+
+    return blog;
 }
