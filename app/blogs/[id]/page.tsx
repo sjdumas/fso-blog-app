@@ -8,7 +8,7 @@ interface BlogPageProps {
 
 export default async function BlogPage({ params }: BlogPageProps) {
     const { id } = await params;
-    const blog = getBlogById(Number(id));
+    const blog = await getBlogById(Number(id));
 
     if (!blog) {
         notFound();

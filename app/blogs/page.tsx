@@ -10,11 +10,7 @@ async function FilteredBlogList({ searchParams }: BlogsPageProps) {
     const { filter } = await searchParams;
     const searchTerm = typeof filter === "string" ? filter : "";
 
-    const blogs = getBlogs()
-        .filter((blog) =>
-            blog.title.toLowerCase().includes(searchTerm.toLowerCase()),
-        )
-        .sort((a, b) => b.likes - a.likes);
+    const blogs = await getBlogs(searchTerm);
 
     return (
         <div>

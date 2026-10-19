@@ -9,7 +9,7 @@ export async function createBlog(formData: FormData) {
     const author = formData.get("author") as string;
     const url = formData.get("url") as string;
 
-    addBlog(title, author, url);
+    await addBlog(title, author, url);
 
     revalidatePath("/blogs");
     redirect("/blogs");
@@ -18,7 +18,7 @@ export async function createBlog(formData: FormData) {
 export async function likeBlog(formData: FormData) {
     const id = Number(formData.get("id"));
 
-    incrementLikes(id);
+    await incrementLikes(id);
 
     revalidatePath(`/blogs/${id}`);
     revalidatePath("/blogs");
