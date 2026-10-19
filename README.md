@@ -4,6 +4,10 @@ This repository contains my work for the [Next.js](https://courses.mooc.fi/org/u
 
 It is a small blog app built with Next.js and TypeScript. You can browse a list of sample blogs, open a blog to see its details, and submit a form to add a blog.
 
+## Live Demo
+
+Visit the app at [https://fso-blog-app-xi.vercel.app/](https://fso-blog-app-xi.vercel.app/).
+
 ## Features
 
 - Home page with navigation to the blog list
