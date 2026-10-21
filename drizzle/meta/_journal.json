@@ -8,6 +8,13 @@
       "when": 1792445195977,
       "tag": "0000_rainy_star_brand",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792540516188,
+      "tag": "0001_wooden_black_crow",
+      "breakpoints": true
     }
   ]
 }
