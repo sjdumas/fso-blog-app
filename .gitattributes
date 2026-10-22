@@ -4,3 +4,4 @@
 *.cjs text eol=lf
 *.ts text eol=lf
 *.tsx text eol=lf
+* text=auto eol=lf

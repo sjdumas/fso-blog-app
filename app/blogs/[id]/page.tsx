@@ -3,7 +3,7 @@ import { getBlogById } from "@/lib/blogs";
 import { likeBlog } from "../actions";
 
 interface BlogPageProps {
-    params: Promise<{ id: string }>;
+  params: Promise<{ id: string }>;
 }
 
 export default async function BlogPage({ params }: BlogPageProps) {
@@ -19,7 +19,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
       <h1>{blog.title}</h1>
       <p>Author: {blog.author}</p>
       <p>
-                URL: <a href={blog.url}>{blog.url}</a>
+        URL: <a href={blog.url}>{blog.url}</a>
       </p>
       <p>Likes: {blog.likes}</p>
       <form action={likeBlog}>

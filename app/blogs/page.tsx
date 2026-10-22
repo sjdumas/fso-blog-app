@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { getBlogs } from "@/lib/blogs";
 
 interface BlogsPageProps {
-    searchParams: Promise<{ filter?: string | string[] }>;
+  searchParams: Promise<{ filter?: string | string[] }>;
 }
 
 async function FilteredBlogList({ searchParams }: BlogsPageProps) {

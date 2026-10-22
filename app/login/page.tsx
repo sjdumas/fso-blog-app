@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { login } from "@/lib/auth-actions";
 
 interface LoginPageProps {
-    searchParams: Promise<{ error?: string | string[] }>;
+  searchParams: Promise<{ error?: string | string[] }>;
 }
 
 async function LoginError({ searchParams }: LoginPageProps) {
