@@ -1,8 +1,8 @@
 CREATE TABLE "users" (
-	"id" serial PRIMARY KEY NOT NULL,
-	"username" text NOT NULL,
-	"name" text NOT NULL,
-	CONSTRAINT "users_username_unique" UNIQUE("username")
+  "id" serial PRIMARY KEY NOT NULL,
+  "username" text NOT NULL,
+  "name" text NOT NULL,
+  CONSTRAINT "users_username_unique" UNIQUE("username")
 );
 --> statement-breakpoint
 ALTER TABLE "blogs" ADD COLUMN "user_id" integer;--> statement-breakpoint

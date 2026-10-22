@@ -7,28 +7,28 @@ interface UserPageProps {
 }
 
 export default async function UserPage({ params }: UserPageProps) {
-    const { username } = await params;
-    const user = await getUserByUsername(username);
+  const { username } = await params;
+  const user = await getUserByUsername(username);
 
-    if (!user) {
-        notFound();
-    }
+  if (!user) {
+    notFound();
+  }
 
-    return (
-        <div>
-            <h1>{user.name}</h1>
-            <h2>Added blogs</h2>
-            {user.blogs.length === 0 ? (
-                <p>No blogs added yet.</p>
-            ) : (
-                <ul>
-                    {user.blogs.map((blog) => (
-                        <li key={blog.id}>
-                            <Link href={`/blogs/${blog.id}`}>{blog.title}</Link>
-                        </li>
-                    ))}
-                </ul>
-            )}
-        </div>
-    );
+  return (
+    <div>
+      <h1>{user.name}</h1>
+      <h2>Added blogs</h2>
+      {user.blogs.length === 0 ? (
+        <p>No blogs added yet.</p>
+      ) : (
+        <ul>
+          {user.blogs.map((blog) => (
+            <li key={blog.id}>
+              <Link href={`/blogs/${blog.id}`}>{blog.title}</Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
 }
