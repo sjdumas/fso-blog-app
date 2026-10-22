@@ -4,6 +4,8 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { auth } from "@/auth";
 import { logout } from "@/lib/auth-actions";
+import { themeInitScript } from "@/lib/theme";
+import ThemeToggle from "./ThemeToggle";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -40,12 +42,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body>
         <nav style={{ display: "flex", gap: "1rem", padding: "1rem" }}>
           <Link href="/">Home</Link>
           <Link href="/blogs">Blogs</Link>
           <Link href="/users">Users</Link>
+          <ThemeToggle />
           <Suspense fallback={null}>
             <UserStatus />
           </Suspense>
