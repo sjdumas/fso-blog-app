@@ -14,16 +14,21 @@ async function FilteredBlogList({ searchParams }: BlogsPageProps) {
 
   return (
     <div>
-      <form action="/blogs">
-        <input
-          type="text"
-          name="filter"
-          defaultValue={searchTerm}
-          placeholder="Search by title"
-          aria-label="Search blogs by title"
-        />
-        <button type="submit">Search</button>
-      </form>
+      <div className="toolbar">
+        <Link href="/blogs/new" className="button-link">
+          Create New Blog
+        </Link>
+        <form action="/blogs">
+          <input
+            type="text"
+            name="filter"
+            defaultValue={searchTerm}
+            placeholder="Search by title"
+            aria-label="Search blogs by title"
+          />
+          <button type="submit">Search</button>
+        </form>
+      </div>
       {blogs.length === 0 ? (
         <p>No blogs match your search.</p>
       ) : (
@@ -44,7 +49,6 @@ export default function BlogsPage({ searchParams }: BlogsPageProps) {
   return (
     <div>
       <h1>Blogs</h1>
-      <Link href="/blogs/new">Create new blog</Link>
       <Suspense fallback={<p>Loading blogs...</p>}>
         <FilteredBlogList searchParams={searchParams} />
       </Suspense>

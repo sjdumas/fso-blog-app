@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import { auth } from "@/auth";
 import { logout } from "@/lib/auth-actions";
 import { themeInitScript } from "@/lib/theme";
+import Footer from "./Footer";
 import ThemeToggle from "./ThemeToggle";
 import "./globals.css";
 
@@ -12,6 +13,17 @@ export const metadata: Metadata = {
   title: "Blog App",
   description: "A blog list application built with Next.js",
 };
+
+async function UserGreeting() {
+  await connection();
+  const session = await auth();
+
+  if (!session?.user) {
+    return null;
+  }
+
+  return <span>{session.user.name} logged in</span>;
+}
 
 async function UserStatus() {
   await connection();
@@ -27,12 +39,9 @@ async function UserStatus() {
   }
 
   return (
-    <span style={{ display: "flex", gap: "0.5rem" }}>
-      {session.user.name} logged in
-      <form action={logout}>
-        <button type="submit">Log out</button>
-      </form>
-    </span>
+    <form action={logout}>
+      <button type="submit">Log out</button>
+    </form>
   );
 }
 
@@ -47,16 +56,22 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body>
-        <nav style={{ display: "flex", gap: "1rem", padding: "1rem" }}>
-          <Link href="/">Home</Link>
+        <nav>
+          <Link href="/" className="nav-title">
+            Blog App
+          </Link>
+          <Suspense fallback={null}>
+            <UserGreeting />
+          </Suspense>
           <Link href="/blogs">Blogs</Link>
           <Link href="/users">Users</Link>
-          <ThemeToggle />
           <Suspense fallback={null}>
             <UserStatus />
           </Suspense>
+          <ThemeToggle />
         </nav>
-        <main style={{ padding: "1rem" }}>{children}</main>
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
