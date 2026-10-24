@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { connection } from "next/server";
 import { Suspense } from "react";
+import { auth } from "@/auth";
 import { getBlogs } from "@/lib/blogs";
 import { buttonClass, inputClass } from "@/lib/styles";
 
@@ -8,23 +10,26 @@ interface BlogsPageProps {
 }
 
 async function FilteredBlogList({ searchParams }: BlogsPageProps) {
+  await connection();
   const { filter } = await searchParams;
   const searchTerm = typeof filter === "string" ? filter : "";
 
-  const blogs = await getBlogs(searchTerm);
+  const [blogs, session] = await Promise.all([getBlogs(searchTerm), auth()]);
 
   return (
     <div>
       <div className="my-4 flex items-center justify-between gap-4">
-        <Link
-          href="/blogs/new"
-          className={`${buttonClass} shrink-0 whitespace-nowrap`}
-        >
-          Create new blog
-        </Link>
+        {session?.user && (
+          <Link
+            href="/blogs/new"
+            className={`${buttonClass} shrink-0 whitespace-nowrap`}
+          >
+            Create new blog
+          </Link>
+        )}
         <form
           action="/blogs"
-          className="m-0 flex max-w-none min-w-0 flex-initial flex-row gap-2"
+          className="m-0 ml-auto flex max-w-none min-w-0 flex-initial flex-row gap-2"
         >
           <input
             type="text"

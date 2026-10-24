@@ -54,7 +54,7 @@ async function UserStatus() {
   return (
     <span className="flex items-center gap-4">
       <Link href="/blogs/new" className={navLinkClass}>
-        New blog
+        Create new blog
       </Link>
       <Link href="/me" className={navLinkClass}>
         Me
