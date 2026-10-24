@@ -33,3 +33,17 @@ export async function getReadingList(userId: number) {
     },
   });
 }
+
+export async function markEntryAsRead(
+  userId: number,
+  entryId: number,
+): Promise<void> {
+  if (!Number.isInteger(entryId)) {
+    return;
+  }
+
+  await db
+    .update(readingList)
+    .set({ read: true })
+    .where(and(eq(readingList.id, entryId), eq(readingList.userId, userId)));
+}
