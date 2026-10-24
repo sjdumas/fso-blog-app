@@ -23,7 +23,7 @@ export default async function FooterAccountLinks() {
   return (
     <>
       <li>
-        <Link href="/me">My page</Link>
+        <Link href="/me">Me</Link>
       </li>
       <li>
         <form action={logout}>

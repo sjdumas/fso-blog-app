@@ -20,7 +20,7 @@ async function FilteredBlogList({ searchParams }: BlogsPageProps) {
           href="/blogs/new"
           className={`${buttonClass} shrink-0 whitespace-nowrap`}
         >
-          Create New Blog
+          Create new blog
         </Link>
         <form
           action="/blogs"

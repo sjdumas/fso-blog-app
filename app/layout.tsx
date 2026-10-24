@@ -54,7 +54,7 @@ async function UserStatus() {
   return (
     <span className="flex items-center gap-4">
       <Link href="/me" className={navLinkClass}>
-        My page
+        Me
       </Link>
       <form action={logout}>
         <button
@@ -67,6 +67,7 @@ async function UserStatus() {
     </span>
   );
 }
+
 export default function RootLayout({
   children,
 }: Readonly<{

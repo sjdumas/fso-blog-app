@@ -21,10 +21,10 @@ export default async function MePage() {
 
   return (
     <div>
-      <h1>My page</h1>
+      <h1>My profile</h1>
       <section className="rounded-lg border border-border bg-surface p-6">
-        <p className="m-0 text-lg font-semibold">{user.name}</p>
-        <p className="m-0 text-muted">@{user.username}</p>
+        <p className="m-0 text-lg font-semibold">Name: <span className="font-normal">{user.name}</span></p>
+        <p className="m-0 text-lg font-semibold">Username: <span className="font-normal">@{user.username}</span></p>
       </section>
       <section className="mt-6 rounded-lg border border-border bg-surface p-6">
         <h2 className="mt-0">API token</h2>
