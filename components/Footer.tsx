@@ -1,5 +1,7 @@
 import { cacheLife } from "next/cache";
 import Link from "next/link";
+import { Suspense } from "react";
+import FooterAccountLinks from "./FooterAccountsLink";
 
 // Cached so the page can still be prerendered; refreshes daily, so the
 // year rolls over on its own
@@ -34,12 +36,9 @@ export default function Footer() {
           <div>
             <h2>Account</h2>
             <ul>
-              <li>
-                <Link href="/login">Log in</Link>
-              </li>
-              <li>
-                <Link href="/register">Register</Link>
-              </li>
+              <Suspense fallback={null}>
+                <FooterAccountLinks />
+              </Suspense>
             </ul>
           </div>
         </div>
@@ -49,7 +48,10 @@ export default function Footer() {
           © <CurrentYear /> Blog App
         </span>
         <span>
-          Built with <a target="_blank" href="https://nextjs.org">Next.js</a>
+          Built with{" "}
+          <a href="https://nextjs.org" target="_blank" rel="noopener noreferrer">
+            Next.js
+          </a>
         </span>
       </p>
     </footer>
