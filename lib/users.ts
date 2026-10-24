@@ -2,7 +2,9 @@ import { asc, desc, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { blogs, users } from "@/db/schema";
 
-export type User = Omit<typeof users.$inferSelect, "passwordHash">;
+export type User = Pick<typeof users.$inferSelect, "id" | "username" | "name">;
+
+const publicUserColumns = { id: true, username: true, name: true } as const;
 
 export async function getUsers(): Promise<User[]> {
   return db
@@ -14,7 +16,7 @@ export async function getUsers(): Promise<User[]> {
 export async function getUserByUsername(username: string) {
   return db.query.users.findFirst({
     where: eq(users.username, username),
-    columns: { passwordHash: false },
+    columns: publicUserColumns,
     with: {
       blogs: {
         orderBy: [desc(blogs.likes)],
@@ -27,6 +29,21 @@ export async function getUserWithPasswordHash(username: string) {
   return db.query.users.findFirst({
     where: eq(users.username, username),
   });
+}
+
+export async function getUserWithToken(id: number) {
+  if (!Number.isInteger(id)) {
+    return undefined;
+  }
+
+  return db.query.users.findFirst({
+    where: eq(users.id, id),
+    columns: { ...publicUserColumns, token: true },
+  });
+}
+
+export async function setUserToken(id: number, token: string): Promise<void> {
+  await db.update(users).set({ token }).where(eq(users.id, id));
 }
 
 export async function usernameExists(username: string): Promise<boolean> {

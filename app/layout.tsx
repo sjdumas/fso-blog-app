@@ -52,17 +52,21 @@ async function UserStatus() {
   }
 
   return (
-    <form action={logout}>
-      <button
-        type="submit"
-        className="inline-flex items-center rounded-md border border-border bg-transparent px-3 py-1.5 leading-none text-foreground hover:bg-border hover:text-foreground"
-      >
-        Log out
-      </button>
-    </form>
+    <span className="flex items-center gap-4">
+      <Link href="/me" className={navLinkClass}>
+        My page
+      </Link>
+      <form action={logout}>
+        <button
+          type="submit"
+          className="inline-flex items-center rounded-md border border-border bg-transparent px-3 py-1.5 leading-none text-foreground hover:bg-border hover:text-foreground"
+        >
+          Log out
+        </button>
+      </form>
+    </span>
   );
 }
-
 export default function RootLayout({
   children,
 }: Readonly<{
