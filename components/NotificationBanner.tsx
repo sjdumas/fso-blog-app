@@ -17,7 +17,7 @@ export default function NotificationBanner() {
   return (
     <div
       role={notification.type === "error" ? "alert" : "status"}
-      className={`mx-auto mt-4 w-[calc(100%-2rem)] max-w-[46rem] rounded-md border border-l-4 border-(--border) bg-(--surface) px-4 py-3 text-(--foreground) shadow-sm ${styles[notification.type]}`}
+      className={`mx-auto mt-4 w-[calc(100%-2rem)] max-w-184 rounded-md border border-l-4 border-border bg-surface px-4 py-3 text-foreground shadow-sm ${styles[notification.type]}`}
     >
       {notification.message}
     </div>

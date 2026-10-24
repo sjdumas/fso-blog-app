@@ -21,6 +21,8 @@ export const metadata: Metadata = {
   description: "A blog list application built with Next.js",
 };
 
+const navLinkClass = "font-medium text-foreground no-underline hover:text-muted";
+
 async function UserGreeting() {
   await connection();
   const session = await auth();
@@ -29,7 +31,7 @@ async function UserGreeting() {
     return null;
   }
 
-  return <span>{session.user.name} logged in</span>;
+  return <span className="text-muted">{session.user.name} logged in</span>;
 }
 
 async function UserStatus() {
@@ -38,16 +40,25 @@ async function UserStatus() {
 
   if (!session?.user) {
     return (
-      <span style={{ display: "flex", gap: "1rem" }}>
-        <Link href="/login">Log in</Link>
-        <Link href="/register">Register</Link>
+      <span className="flex items-center gap-4">
+        <Link href="/login" className={navLinkClass}>
+          Log in
+        </Link>
+        <Link href="/register" className={navLinkClass}>
+          Register
+        </Link>
       </span>
     );
   }
 
   return (
     <form action={logout}>
-      <button type="submit">Log out</button>
+      <button
+        type="submit"
+        className="inline-flex items-center rounded-md border border-border bg-transparent px-3 py-1.5 leading-none text-foreground hover:bg-border hover:text-foreground"
+      >
+        Log out
+      </button>
     </form>
   );
 }
@@ -59,17 +70,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={geist.variable}>
-      <body>
+      <body suppressHydrationWarning>
         <NotificationProvider>
-          <nav>
-            <Link href="/" className="nav-title">
+          <nav className="flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-border bg-surface px-[max(1rem,calc((100%-46rem)/2))] py-4 text-[0.95rem]">
+            <Link
+              href="/"
+              className="mr-auto basis-full text-lg font-bold tracking-tight text-foreground no-underline hover:text-muted sm:basis-auto"
+            >
               Blog App
             </Link>
             <Suspense fallback={null}>
               <UserGreeting />
             </Suspense>
-            <Link href="/blogs">Blogs</Link>
-            <Link href="/users">Users</Link>
+            <Link href="/blogs" className={navLinkClass}>
+              Blogs
+            </Link>
+            <Link href="/users" className={navLinkClass}>
+              Users
+            </Link>
             <Suspense fallback={null}>
               <UserStatus />
             </Suspense>
