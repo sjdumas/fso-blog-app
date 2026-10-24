@@ -1,13 +1,31 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useActionState } from "react";
+import { useNotification } from "@/components/NotificationContext";
 import { createBlog, type BlogFormState } from "../actions";
 
 const initialState: BlogFormState = {};
 
 export default function BlogForm() {
+  const router = useRouter();
+  const { showNotification } = useNotification();
+
   const [state, formAction, isPending] = useActionState(
-    createBlog,
+    async (prevState: BlogFormState, formData: FormData) => {
+      const result = await createBlog(prevState, formData);
+
+      if (result.success) {
+        showNotification(
+          `A new blog "${result.values?.title}" by ${result.values?.author} was added.`,
+        );
+        router.push("/blogs");
+      } else {
+        showNotification("Please fix the errors below.", "error");
+      }
+
+      return result;
+    },
     initialState,
   );
 

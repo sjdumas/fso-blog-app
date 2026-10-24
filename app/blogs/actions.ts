@@ -1,10 +1,10 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { addBlog, incrementLikes } from "@/lib/blogs";
 
 export type BlogFormState = {
+  success?: boolean;
   errors?: {
     title?: string;
     author?: string;
@@ -50,7 +50,7 @@ export async function createBlog(
   await addBlog(title, author, url);
 
   revalidatePath("/blogs");
-  redirect("/blogs");
+  return { success: true, values: { title, author, url } };
 }
 
 export async function likeBlog(formData: FormData) {
