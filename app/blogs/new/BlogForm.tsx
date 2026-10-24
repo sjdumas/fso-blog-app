@@ -26,7 +26,7 @@ export default function BlogForm() {
         );
         router.push("/blogs");
       } else {
-        showNotification("Please fix the errors below.", "error");
+        showNotification(result.error ?? "Please fix the errors below.", "error");
       }
 
       return result;
