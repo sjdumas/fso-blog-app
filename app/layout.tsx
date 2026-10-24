@@ -1,13 +1,20 @@
 import { connection } from "next/server";
 import type { Metadata } from "next";
+import { Geist } from "next/font/google";
 import Link from "next/link";
 import { Suspense } from "react";
 import { auth } from "@/auth";
 import { logout } from "@/lib/auth-actions";
-import { themeInitScript } from "@/lib/theme";
-import Footer from "./Footer";
-import ThemeToggle from "./ThemeToggle";
+import NotificationBanner from "@/components/NotificationBanner";
+import { NotificationProvider } from "@/components/NotificationContext";
+import Footer from "@/components/Footer";
 import "./globals.css";
+
+// Self-hosted at build time; exposed as a CSS variable used by --font-sans
+const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-geist-sans",
+});
 
 export const metadata: Metadata = {
   title: "Blog App",
@@ -51,27 +58,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-      </head>
+    <html lang="en" className={geist.variable}>
       <body>
-        <nav>
-          <Link href="/" className="nav-title">
-            Blog App
-          </Link>
-          <Suspense fallback={null}>
-            <UserGreeting />
-          </Suspense>
-          <Link href="/blogs">Blogs</Link>
-          <Link href="/users">Users</Link>
-          <Suspense fallback={null}>
-            <UserStatus />
-          </Suspense>
-          <ThemeToggle />
-        </nav>
-        <main>{children}</main>
-        <Footer />
+        <NotificationProvider>
+          <nav>
+            <Link href="/" className="nav-title">
+              Blog App
+            </Link>
+            <Suspense fallback={null}>
+              <UserGreeting />
+            </Suspense>
+            <Link href="/blogs">Blogs</Link>
+            <Link href="/users">Users</Link>
+            <Suspense fallback={null}>
+              <UserStatus />
+            </Suspense>
+          </nav>
+          <NotificationBanner />
+          <main>{children}</main>
+          <Footer />
+        </NotificationProvider>
       </body>
     </html>
   );
