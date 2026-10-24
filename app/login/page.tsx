@@ -18,7 +18,7 @@ async function LoginError({ searchParams }: LoginPageProps) {
 export default function LoginPage({ searchParams }: LoginPageProps) {
   return (
     <div>
-      <h1>Log in</h1>
+      <h1>Log In</h1>
       <Suspense fallback={null}>
         <LoginError searchParams={searchParams} />
       </Suspense>
