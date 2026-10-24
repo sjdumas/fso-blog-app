@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getBlogById } from "@/lib/blogs";
+import { buttonClass } from "@/lib/styles";
 import { likeBlog } from "../actions";
 
 interface BlogPageProps {
@@ -15,17 +16,29 @@ export default async function BlogPage({ params }: BlogPageProps) {
   }
 
   return (
-    <div>
-      <h1>{blog.title}</h1>
-      <p>Author: {blog.author}</p>
-      <p>
-        URL: <a href={blog.url}>{blog.url}</a>
-      </p>
-      <p>Likes: {blog.likes}</p>
-      <form action={likeBlog}>
-        <input type="hidden" name="id" value={blog.id} />
-        <button type="submit">Like</button>
-      </form>
-    </div>
+    <article className="rounded-lg border border-border bg-surface p-6">
+      <h1 className="mb-2">{blog.title}</h1>
+      <p className="text-muted">by {blog.author}</p>
+      <a
+        href={blog.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-sm break-all"
+      >
+        {blog.url}
+      </a>
+      <div className="mt-6 flex items-center gap-4 border-t border-border pt-4">
+        <span className="text-muted">
+          <strong className="text-foreground">{blog.likes}</strong>{" "}
+          {blog.likes === 1 ? "like" : "likes"}
+        </span>
+        <form action={likeBlog} className="m-0 max-w-none flex-row">
+          <input type="hidden" name="id" value={blog.id} />
+          <button type="submit" className={buttonClass}>
+            Like
+          </button>
+        </form>
+      </div>
+    </article>
   );
 }
