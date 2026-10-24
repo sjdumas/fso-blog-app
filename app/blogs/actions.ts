@@ -1,8 +1,10 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { addBlog, incrementLikes } from "@/lib/blogs";
+import { redirect } from "next/navigation";
 import { auth } from "@/auth";
+import { addBlog, getBlogById, incrementLikes } from "@/lib/blogs";
+import { addToReadingList } from "@/lib/readingList";
 
 export type BlogFormState = {
   success?: boolean;
@@ -69,4 +71,23 @@ export async function likeBlog(formData: FormData) {
 
   revalidatePath(`/blogs/${id}`);
   revalidatePath("/blogs");
+}
+
+export async function saveToReadingList(formData: FormData) {
+  const session = await auth();
+
+  if (!session?.user?.id) {
+    redirect("/login");
+  }
+
+  const blog = await getBlogById(Number(formData.get("blogId")));
+
+  if (!blog) {
+    return;
+  }
+
+  await addToReadingList(Number(session.user.id), blog.id);
+
+  revalidatePath(`/blogs/${blog.id}`);
+  revalidatePath("/me");
 }
