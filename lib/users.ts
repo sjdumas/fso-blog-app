@@ -42,6 +42,15 @@ export async function getUserWithToken(id: number) {
   });
 }
 
+export async function getUserByToken(
+  token: string,
+): Promise<User | undefined> {
+  return db.query.users.findFirst({
+    where: eq(users.token, token),
+    columns: publicUserColumns,
+  });
+}
+
 export async function setUserToken(id: number, token: string): Promise<void> {
   await db.update(users).set({ token }).where(eq(users.id, id));
 }
