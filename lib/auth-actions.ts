@@ -3,24 +3,48 @@
 import bcrypt from "bcryptjs";
 import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { signIn, signOut } from "@/auth";
 import { addUser, usernameExists } from "@/lib/users";
 
-export async function login(formData: FormData) {
+export type LoginFormState = {
+  success?: boolean;
+  error?: string;
+  values?: {
+    username: string;
+  };
+};
+
+export async function login(
+  prevState: LoginFormState,
+  formData: FormData,
+): Promise<LoginFormState> {
+  const username = String(formData.get("username") ?? "").trim();
+  const password = String(formData.get("password") ?? "");
+  const failure = {
+    error: "Invalid username or password.",
+    values: { username },
+  };
+
   try {
-    await signIn("credentials", {
-      username: formData.get("username"),
-      password: formData.get("password"),
-      redirectTo: "/blogs",
+    const result = await signIn("credentials", {
+      username,
+      password,
+      redirect: false,
     });
+
+    if (typeof result === "string" && result.includes("error=")) {
+      return failure;
+    }
   } catch (error) {
     if (error instanceof AuthError) {
-      redirect("/login?error=invalid");
+      return failure;
     }
 
     throw error;
   }
+
+  revalidatePath("/", "layout");
+  return { success: true };
 }
 
 export async function logout() {
