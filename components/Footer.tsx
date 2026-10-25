@@ -52,6 +52,17 @@ export default function Footer() {
           <a href="https://nextjs.org" target="_blank" rel="noopener noreferrer">
             Next.js
           </a>
+          <span aria-hidden="true" className="mx-2 text-muted">
+            |
+          </span>
+          View on{" "}
+          <a
+            href="https://github.com/sjdumas/fso-blog-app"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
         </span>
       </p>
     </footer>
