@@ -26,9 +26,9 @@ export default async function BlogPage({ params }: BlogPageProps) {
     userId !== null && !isOwner && (await isOnReadingList(userId, blog.id));
 
   return (
-    <article className="rounded-lg border border-border bg-surface p-6">
-      <h1 className="mb-2">{blog.title}</h1>
-      <p className="text-muted">by {blog.author}</p>
+    <article data-testid="blog-detail" className="rounded-lg border border-border bg-surface p-6">
+      <h1 data-testid="blog-title" className="mb-2">{blog.title}</h1>
+      <p data-testid="blog-author" className="text-muted">by {blog.author}</p>
       <a
         href={blog.url}
         target="_blank"
@@ -60,7 +60,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
               className="m-0 ml-auto max-w-none flex-row"
             >
               <input type="hidden" name="blogId" value={blog.id} />
-              <button type="submit" className={buttonClass}>
+              <button type="submit" data-testid="add-to-reading-list-button" className={buttonClass}>
                 Add to reading list
               </button>
             </form>

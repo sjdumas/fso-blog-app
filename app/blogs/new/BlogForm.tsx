@@ -97,7 +97,7 @@ export default function BlogForm() {
           </p>
         )}
       </div>
-      <button type="submit" disabled={isPending} className={buttonClass}>
+      <button type="submit" data-testid="create-blog-button" disabled={isPending} className={buttonClass}>
         {isPending ? "Creating..." : "Create"}
       </button>
     </form>

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { connection } from "next/server";
 import { auth } from "@/auth";
-import { logout } from "@/lib/auth-actions";
 
 export default async function FooterAccountLinks() {
   await connection();
@@ -21,20 +20,8 @@ export default async function FooterAccountLinks() {
   }
 
   return (
-    <>
-      <li>
-        <Link href="/me">Me</Link>
-      </li>
-      <li>
-        <form action={logout}>
-          <button
-            type="submit"
-            className="cursor-pointer bg-transparent p-0 text-sm font-normal text-accent hover:bg-transparent hover:text-accent-hover"
-          >
-            Log out
-          </button>
-        </form>
-      </li>
-    </>
+    <li>
+      <Link href="/me">Me</Link>
+    </li>
   );
 }

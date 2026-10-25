@@ -37,7 +37,9 @@ export default function RegisterForm() {
           defaultValue={state.values?.username}
         />
         {state.errors?.username && (
-          <p style={{ color: "red" }}>{state.errors.username}</p>
+          <p data-testid="username-error" style={{ color: "red" }}>
+            {state.errors.username}
+          </p>
         )}
       </div>
       <div>
@@ -50,7 +52,7 @@ export default function RegisterForm() {
           defaultValue={state.values?.name}
         />
         {state.errors?.name && (
-          <p style={{ color: "red" }}>{state.errors.name}</p>
+          <p data-testid="name-error" style={{ color: "red" }}>{state.errors.name}</p>
         )}
       </div>
       <div>
@@ -62,11 +64,11 @@ export default function RegisterForm() {
           autoComplete="new-password"
         />
         {state.errors?.password && (
-          <p style={{ color: "red" }}>{state.errors.password}</p>
+          <p data-testid="password-error" style={{ color: "red" }}>{state.errors.password}</p>
         )}
       </div>
       <div>
-        <label htmlFor="passwordConfirm">Confirm password</label>
+        <label htmlFor="passwordConfirm">Confirm Password</label>
         <input
           id="passwordConfirm"
           name="passwordConfirm"
@@ -74,10 +76,10 @@ export default function RegisterForm() {
           autoComplete="new-password"
         />
         {state.errors?.passwordConfirm && (
-          <p style={{ color: "red" }}>{state.errors.passwordConfirm}</p>
+          <p data-testid="passwordConfirm-error" style={{ color: "red" }}>{state.errors.passwordConfirm}</p>
         )}
       </div>
-      <button type="submit" disabled={isPending}>
+      <button type="submit" data-testid="register-button" disabled={isPending}>
         {isPending ? "Registering..." : "Register"}
       </button>
     </form>

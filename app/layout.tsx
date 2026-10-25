@@ -41,10 +41,10 @@ async function UserStatus() {
   if (!session?.user) {
     return (
       <span className="flex items-center gap-4">
-        <Link href="/login" className={navLinkClass}>
-          Log in
+        <Link href="/login" aria-label="login" className={navLinkClass}>
+          Login
         </Link>
-        <Link href="/register" className={navLinkClass}>
+        <Link href="/register" aria-label="register" className={navLinkClass}>
           Register
         </Link>
       </span>
@@ -54,9 +54,9 @@ async function UserStatus() {
   return (
     <span className="flex items-center gap-4">
       <Link href="/blogs/new" className={navLinkClass}>
-        Create new blog
+        New blog
       </Link>
-      <Link href="/me" className={navLinkClass}>
+      <Link href="/me" aria-label="me" className={navLinkClass}>
         Me
       </Link>
       <form action={logout}>
@@ -64,7 +64,7 @@ async function UserStatus() {
           type="submit"
           className="inline-flex items-center rounded-md border border-border bg-transparent px-3 py-1.5 leading-none text-foreground hover:bg-border hover:text-foreground"
         >
-          Log out
+          Logout
         </button>
       </form>
     </span>
@@ -90,10 +90,10 @@ export default function RootLayout({
             <Suspense fallback={null}>
               <UserGreeting />
             </Suspense>
-            <Link href="/blogs" className={navLinkClass}>
+            <Link href="/blogs" aria-label="blogs" className={navLinkClass}>
               Blogs
             </Link>
-            <Link href="/users" className={navLinkClass}>
+            <Link href="/users" aria-label="users" className={navLinkClass}>
               Users
             </Link>
             <Suspense fallback={null}>
