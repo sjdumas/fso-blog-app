@@ -1,13 +1,27 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useActionState } from "react";
+import { useNotification } from "@/components/NotificationContext";
 import { registerUser, type RegisterFormState } from "@/lib/auth-actions";
 
 const initialState: RegisterFormState = {};
 
 export default function RegisterForm() {
+  const router = useRouter();
+  const { showNotification } = useNotification();
+
   const [state, formAction, isPending] = useActionState(
-    registerUser,
+    async (prevState: RegisterFormState, formData: FormData) => {
+      const result = await registerUser(prevState, formData);
+
+      if (result.success) {
+        showNotification("Your account was created. You can now log in.");
+        router.push("/login");
+      }
+
+      return result;
+    },
     initialState,
   );
 

@@ -22,7 +22,7 @@ export default function BlogForm() {
 
       if (result.success) {
         showNotification(
-          `A new blog "${result.values?.title}" by ${result.values?.author} was added.`,
+          `A new blog "${result.created?.title}" by ${result.created?.author} was added.`,
         );
         router.push("/blogs");
       } else {

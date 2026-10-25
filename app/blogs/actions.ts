@@ -9,6 +9,10 @@ import { addToReadingList } from "@/lib/readingList";
 export type BlogFormState = {
   success?: boolean;
   error?: string;
+  created?: {
+    title: string;
+    author: string;
+  };
   errors?: {
     title?: string;
     author?: string;
@@ -61,7 +65,7 @@ export async function createBlog(
 
   revalidatePath("/blogs");
   revalidatePath("/me");
-  return { success: true, values: { title, author, url } };
+  return { success: true, created: { title, author } };
 }
 
 export async function likeBlog(formData: FormData) {

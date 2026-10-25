@@ -28,6 +28,7 @@ export async function logout() {
 }
 
 export type RegisterFormState = {
+  success?: boolean;
   errors?: {
     username?: string;
     name?: string;
@@ -81,5 +82,5 @@ export async function registerUser(
   await addUser(username, name, passwordHash);
 
   revalidatePath("/users");
-  redirect("/login");
+  return { success: true };
 }
